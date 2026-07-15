@@ -4,7 +4,10 @@
  */
 package com.fernandogonzalez.controller;
 
+import com.fernandogonzalez.model.Usuario;
 import com.fernandogonzalez.view.LoginView;
+import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,19 +16,85 @@ import com.fernandogonzalez.view.LoginView;
 public class LoginController {
 
     private final LoginView LOGIN_VIEW;
+    private double ejeX = 0 ;
+    private double ejeY = 0 ;
+    private AuthSistema authSistema = new AuthSistema();
 
     public LoginController(LoginView loginView) {
         this.LOGIN_VIEW = loginView;
         contruirAcciones();
     }
+     
+    
+    private Stage escenarioPrincipal = SceneManager.getInstanciaSceneManager().getEscenarioPrincipal();
+    
+    
+    public void iniciarSesion(){
+    String nombreUsuario = this.LOGIN_VIEW.getTxtNombreUsuario().getText().trim();
+    String clave = this.LOGIN_VIEW.getPwdClave().getText().trim();
+    
+            if( nombreUsuario. isEmpty() ){
+        JOptionPane. showMessageDialog(null, "NO DEJES VACIO EL NOMBRE USUARIO");
 
+            }else if( clave.isEmpty() ){
+        JOptionPane. showMessageDialog(null, "NO DEJES VACIO LA CONTRASENA");
+
+            }else{
+            //METODO LOGIN
+            Usuario usuario = authSistema.login(nombreUsuario, clave);
+            
+            if (usuario == null ){
+            JOptionPane.showMessageDialog(null , "VERIICA TUS CREDENCIALES ");
+            }else{
+                JOptionPane.showMessageDialog(null,"HOLAS");
+            }
+        }
+    
+    }
+    
+    
     public void contruirAcciones() {
+        this.LOGIN_VIEW.getBtnIniciarSesion().setOnMouseClicked(
+        (evento) ->{
+        iniciarSesion();
+        }
+        
+        );
+        
+        
         this.LOGIN_VIEW.getBtnCerrarVentana().setOnMouseClicked(
                 (evento) -> {
                     System.exit(0);
                 }
         );
 
+        this.LOGIN_VIEW.setOnMouseClicked(
+        
+        (evento)-> {
+                
+            
+            ejeX = evento.getSceneX();
+            ejeY = evento.getSceneY();
+            
+            
+            
+            
+        }
+        
+        );
+        
+        this.LOGIN_VIEW.setOnMouseDragged(
+        (evento) -> {
+           double ejeXDesplazamientoVentana = evento.getScreenX();
+           double ejeYDesplazamientoVentana = evento.getScreenY();
+    
+           escenarioPrincipal.setX(ejeXDesplazamientoVentana - ejeX);
+           escenarioPrincipal.setY(ejeYDesplazamientoVentana - ejeY);
+           
+    }
+        
+        
+        );
     }
 
 }
