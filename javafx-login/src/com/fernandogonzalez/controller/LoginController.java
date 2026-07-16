@@ -6,6 +6,7 @@ package com.fernandogonzalez.controller;
 
 import com.fernandogonzalez.model.Usuario;
 import com.fernandogonzalez.view.LoginView;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
@@ -26,33 +27,42 @@ public class LoginController {
     }
      
     
+    
+    
+    
     private Stage escenarioPrincipal = SceneManager.getInstanciaSceneManager().getEscenarioPrincipal();
     
     
     public void iniciarSesion(){
-    String nombreUsuario = this.LOGIN_VIEW.getTxtNombreUsuario().getText().trim();
-    String clave = this.LOGIN_VIEW.getPwdClave().getText().trim();
-    
-            if( nombreUsuario. isEmpty() ){
-        JOptionPane. showMessageDialog(null, "NO DEJES VACIO EL NOMBRE USUARIO");
-
-            }else if( clave.isEmpty() ){
-        JOptionPane. showMessageDialog(null, "NO DEJES VACIO LA CONTRASENA");
-
-            }else{
-            //METODO LOGIN
-            Usuario usuario = authSistema.login(nombreUsuario, clave);
+     String nombreUsuario = this.LOGIN_VIEW.getTxtNombreUsuario().getText().trim();
+        String clave = this.LOGIN_VIEW.getPwdClave().getText().trim();
+        
+        if( nombreUsuario.isEmpty() ){
+            this.LOGIN_VIEW.getTxtNombreUsuario().getStyleClass().add("empty");
+            JOptionPane.showMessageDialog(null, "NO DEJES VACIO EL NOMBRE USUARIO");
             
-            if (usuario == null ){
-            JOptionPane.showMessageDialog(null , "VERIICA TUS CREDENCIALES ");
-            }else{
-                JOptionPane.showMessageDialog(null,"HOLAS");
-            }
-        }
-    
+} else {
+    this.LOGIN_VIEW.getPwdClave().getStyleClass().remove("empty");
+    // METODO LOGIN
+    Usuario usuario = authSistema.login(nombreUsuario, clave);
+
+    if (usuario == null) {
+        JOptionPane.showMessageDialog(null, "VERIFICA TUS CREDENCIALES");
+    } else {
+        // --- AQUÍ VA EL CAMBIO ---
+        
+        // 1. Cerrar la ventana de Login actual
+        Stage loginStage = (Stage) this.escenarioPrincipal.getScene().getWindow();
+        loginStage.close();
+
+      
+Platform.runLater(() -> {
+    SceneManager.getInstanciaSceneManager().ventanaBienvenida(usuario.getNombreUsuario());
+});
+}
     }
     
-    
+    }
     public void contruirAcciones() {
         this.LOGIN_VIEW.getBtnIniciarSesion().setOnMouseClicked(
         (evento) ->{

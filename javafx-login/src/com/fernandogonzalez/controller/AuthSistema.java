@@ -18,10 +18,10 @@ public class AuthSistema {
 public AuthSistema(){
 
 
-        Usuario usuarioAdmin = new Usuario("admin",
-                "admin", "admin", Rol.ADMIN);
-               Usuario  usuarioUser   = new Usuario("user",
-                "user", "user", Rol.USER);
+        Usuario usuarioAdmin = new Usuario("fernando",
+                "2026", "Fernando Jose Gonzalez", Rol.ADMIN);
+               Usuario  usuarioUser   = new Usuario("chilayo",
+                "0707", "Cristian Gerardo", Rol.USER);
                     Usuario usuarioYo = new Usuario("kenneth",
                     "123", "Kenneth Bryan Velasquez", Rol.ADMIN);
                     

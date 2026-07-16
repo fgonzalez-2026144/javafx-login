@@ -47,12 +47,12 @@ public class LoginView  extends BorderPane {
     private ImageView imgLogoLogin;
     private Button btnIniciarSesion;
     
-    private String RUTA_ESTILOS = "/com/fernandogonzalez/styles";
+    private String RUTA_ESTILOS = "/com/fernandogonzalez/styles/";
     
     
     private LoginView(){
-        this.getStylesheets().add(RUTA_ESTILOS + "LoginStyles.css");
-       this.setPadding (new Insets (25));
+        this.getStylesheets().add(RUTA_ESTILOS+"LoginStyles.css");
+       this.setPadding (new Insets (15));
        this.setBorder( new Border (
                new BorderStroke (Paint.valueOf("#292C8C"), // Color Del Borde 
                BorderStrokeStyle.SOLID,
@@ -70,7 +70,7 @@ public class LoginView  extends BorderPane {
        
        ));
        
-    barraDeOpciones = new HBox (25);
+    barraDeOpciones = new HBox (35);
     
     btnCerrarVentana =  new Button ("X");
     
@@ -82,19 +82,28 @@ public class LoginView  extends BorderPane {
     
     //OBJETOS DEL FORMULARIO
     
-    cajaVertical = new VBox();
+    cajaVertical = new VBox(25);
     
     formulario = new GridPane();
     
-    lblNombreUsuario = new Label("ingrese su nombre de Usuario");
+    lblNombreUsuario = new Label("INGRESE SU NOMBRE DE USUARIO");
     txtNombreUsuario = new TextField ();
     
-    lblClave = new Label ("ingrese su contraseña");
+    lblClave = new Label ("INGRESE SU CONTRASEÑA ");
     pwdClave = new  PasswordField ();
     
     
     formulario.add(lblNombreUsuario,0,0);
+    formulario.add(txtNombreUsuario,1,0);
+    
+    
+    formulario.add(lblClave,0,1);
     formulario.add(pwdClave,1,1);
+    
+
+formulario.setHgap(10); 
+formulario.setVgap(10); 
+formulario.setAlignment(Pos.CENTER);
     
      btnIniciarSesion = new Button ("iniciar Sesion");
     
@@ -103,7 +112,7 @@ public class LoginView  extends BorderPane {
     imgLogoLogin.setFitWidth(100);
     imgLogoLogin.setFitHeight(100) ;
     imgLogoLogin.setCache(true);
-    
+    cajaVertical.setStyle("-fx-background-color: #D3D3D3;");
     cajaVertical.setAlignment(Pos.CENTER);
     
     

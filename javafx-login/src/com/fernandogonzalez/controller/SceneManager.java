@@ -4,6 +4,7 @@
  */
 package com.fernandogonzalez.controller;
 
+import com.fernandogonzalez.view.BienvenidaView;
 import com.fernandogonzalez.view.LoginView;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -45,6 +46,16 @@ public class SceneManager {
     
     
     }
+    
+     public void ventanaBienvenida(String NombreUsuario){
+         BienvenidaView vista = new BienvenidaView();
+         vista.mostrar(NombreUsuario);
+  
+    }
+    
+ 
+    
+    
 
     public void cambiarEscena(Pane panel, int ancho, int alto) {
         try {
